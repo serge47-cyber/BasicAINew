@@ -117,8 +117,27 @@ html.light .text-slate-100,
 html.light .text-slate-200,
 html.light .text-slate-205,
 html.light .text-slate-250,
-html.light .text-slate-300 {
+html.light .text-slate-300,
+html.light .text-slate-355,
+html.light .text-slate-360 {
   color: #1e293b !important;
+}
+
+html.light h1.text-white,
+html.light h2.text-white,
+html.light h3.text-white:not(button *):not([class*="bg-vibrant-"] *),
+html.light h4.text-white:not(button *):not([class*="bg-vibrant-"] *),
+html.light p.text-white:not(button *):not([class*="bg-vibrant-"] *),
+html.light span.text-white:not(button *):not([class*="bg-vibrant-"] *):not(header *),
+html.light strong.text-white {
+  color: #0f172a !important;
+}
+
+html.light .bg-gradient-to-r.from-white.to-slate-300 {
+  background-image: linear-gradient(to right, #0f172a, #475569) !important;
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
 }
 
 html.light .text-slate-350,
@@ -135,17 +154,23 @@ html.light .text-slate-500 {
 html.light .bg-vibrant-dark\/30 {
   background-color: rgba(241, 245, 249, 0.6) !important;
 }
+html.light .bg-vibrant-dark\/35 {
+  background-color: rgba(241, 245, 249, 0.8) !important;
+}
+html.light .bg-vibrant-dark\/40 {
+  background-color: rgba(241, 245, 249, 0.7) !important;
+}
 html.light .bg-vibrant-dark\/50 {
   background-color: rgba(226, 232, 240, 0.5) !important;
+}
+html.light .bg-vibrant-dark\/60 {
+  background-color: rgba(226, 232, 240, 0.8) !important;
 }
 html.light .bg-vibrant-dark\/65 {
   background-color: rgba(255, 255, 255, 0.8) !important;
 }
 html.light .bg-vibrant-dark\/85 {
   background-color: rgba(248, 250, 252, 0.9) !important;
-}
-html.light .bg-vibrant-dark\/35 {
-  background-color: rgba(241, 245, 249, 0.8) !important;
 }
 
 /* Opacity overrides for card look */
@@ -235,4 +260,123 @@ html.light .vibrant-card-gradient:hover {
 
 .animate-wiggle:hover {
   animation: wiggle 0.4s ease-in-out infinite;
+}
+
+/* --- PLAYGROUND WIDGET & SIMULATOR LIGHT MODE SPECIFIC FIXES --- */
+
+/* Backgrounds / Cards */
+html.light .bg-slate-950,
+html.light .from-slate-950 {
+  background-color: #f1f5f9 !important; /* Soft light gray card background */
+  background-image: none !important;
+  color: #0f172a !important;
+}
+
+html.light .bg-slate-900,
+html.light .to-slate-900 {
+  background-color: #ffffff !important; /* White card background */
+  background-image: none !important;
+  color: #1e293b !important;
+}
+
+html.light .bg-slate-850 {
+  background-color: #e2e8f0 !important; /* Slightly darker gray for list items or nested elements */
+  color: #1e293b !important;
+}
+
+html.light .bg-slate-900\/60 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  color: #1e293b !important;
+}
+
+html.light .bg-slate-950\/80 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+  color: #1e293b !important;
+}
+
+/* Borders */
+html.light .border-slate-800,
+html.light .border-slate-850 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Specific component elements inside simulators */
+html.light select.bg-slate-900,
+html.light input.bg-slate-900,
+html.light textarea.bg-slate-900 {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Light text overrides inside any slate-based elements in Light theme */
+html.light .bg-slate-950 .text-white,
+html.light .bg-slate-900 .text-white,
+html.light .bg-slate-850 .text-white,
+html.light .bg-slate-900\/60 .text-white,
+html.light button.bg-slate-900,
+html.light button.bg-slate-850,
+html.light button.bg-slate-950 {
+  color: #1e293b !important;
+}
+
+/* Hover effects for buttons/interactive elements */
+html.light .hover\:bg-slate-850:hover,
+html.light .hover\:bg-slate-800:hover {
+  background-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+/* Alert Boxes / Feedback overrides in Light mode */
+html.light .bg-emerald-950\/40,
+html.light .bg-emerald-950\/30,
+html.light .bg-emerald-950\/20,
+html.light .bg-emerald-950\/10 {
+  background-color: #ecfdf5 !important; /* soft green */
+  border-color: #a7f3d0 !important;
+  color: #15803d !important;
+}
+
+html.light .bg-rose-950\/40,
+html.light .bg-rose-950\/30,
+html.light .bg-rose-950\/20,
+html.light .bg-rose-950\/10 {
+  background-color: #fef2f2 !important; /* soft red */
+  border-color: #fecaca !important;
+  color: #b91c1c !important;
+}
+
+/* Ensure child texts inside alert boxes are dark/readable and not white */
+html.light .bg-emerald-950\/40 *,
+html.light .bg-emerald-950\/30 *,
+html.light .bg-emerald-950\/20 *,
+html.light .bg-emerald-950\/10 *,
+html.light .bg-rose-950\/40 *,
+html.light .bg-rose-950\/30 *,
+html.light .bg-rose-950\/20 *,
+html.light .bg-rose-950\/10 * {
+  color: inherit !important;
+}
+
+/* Alert text states specifically */
+html.light .text-emerald-300 {
+  color: #15803d !important;
+}
+
+html.light .text-rose-300 {
+  color: #b91c1c !important;
+}
+
+/* Slider / Range controls in light theme */
+html.light input[type="range"].bg-slate-850 {
+  background-color: #e2e8f0 !important;
+}
+
+/* Prompt code block text highlights */
+html.light .text-amber-500\/80 {
+  color: #b45309 !important; /* darker amber */
 }
