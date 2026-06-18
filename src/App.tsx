@@ -670,7 +670,7 @@ export default function App() {
               {/* Active Step Indicator tracker */}
               <div className="bg-vibrant-card/65 rounded-2xl p-4 border border-vibrant-border space-y-3 shadow-xl">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="font-mono text-slate-400 font-bold uppercase tracking-wider">Крок {currentStep + 1} з {totalSteps}</span>
+                  <span className="font-mono text-slate-400 font-bold uppercase tracking-wider">Крок {currentStep + 1} / {totalSteps}</span>
                   <span className="text-vibrant-pink font-black font-display">{stepsList[currentStep]}</span>
                 </div>
                 <div className="flex gap-1.5 h-1.5 w-full">

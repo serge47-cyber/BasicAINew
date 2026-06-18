@@ -718,23 +718,219 @@ const WidgetL10: React.FC<{ onTaskPassed: () => void }> = ({ onTaskPassed }) => 
 
 // L11 Widget
 const WidgetL11: React.FC<{ onTaskPassed: () => void }> = ({ onTaskPassed }) => {
-  const [complete, setComplete] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'running' | 'completed'>('idle');
+  const [progress, setProgress] = useState(0);
+  const [activeLogIndex, setActiveLogIndex] = useState(0);
+  const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({
+    'Паспорт та медична страхування': true,
+    'Зарядка для телефону & повербанк': true,
+    'Легка мембранна куртка (прогноз: дощ)': false,
+    'Зручні кросівки для бруківки': false,
+    'Квитки у форматі PDF (офлайн доступ)': false,
+  });
+
+  const logs = [
+    { text: '🤖 Ініціалізація AI-агента та перевірка робочого оточення...', delay: 0 },
+    { text: '🎒 Складання чек-листа речей (аналіз погоди в Римі: +19°C, мінлива хмарність)...', delay: 700 },
+    { text: '🗺️ Розрахунок часу трансферу та стикових рейсів (Київ ➔ Варшава ➔ Рим)...', delay: 1400 },
+    { text: '🎫 Парсинг API лоукостерів та пошук найдешевших квитків на вівторок...', delay: 2100 },
+    { text: '✅ Організація готового персонального сценарію завершена успішно!', delay: 2800 },
+  ];
+
+  const handleStartSimulation = () => {
+    setStatus('running');
+    setProgress(0);
+    setActiveLogIndex(0);
+
+    // Simulate logs appearing and progress going up
+    const startTime = Date.now();
+    const duration = 3000;
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(Math.round((elapsed / duration) * 100), 100);
+      setProgress(pct);
+
+      // Advance log index based on elapsed time matching the log delays
+      const index = logs.findIndex((log, i) => {
+        const nextLog = logs[i + 1];
+        if (nextLog) {
+          return elapsed >= log.delay && elapsed < nextLog.delay;
+        }
+        return elapsed >= log.delay;
+      });
+      if (index !== -1) {
+        setActiveLogIndex(index);
+      }
+
+      if (elapsed >= duration) {
+        clearInterval(interval);
+        setStatus('completed');
+        onTaskPassed();
+      }
+    }, 50);
+  };
+
+  const toggleItem = (itemText: string) => {
+    setSelectedItems(prev => ({
+      ...prev,
+      [itemText]: !prev[itemText]
+    }));
+  };
 
   return (
-    <div className="text-center space-y-3">
-      <p className="text-xs text-slate-300">Ваш перший персональний сценарій налаштовано!</p>
-      <div className="p-4 bg-slate-950 border border-slate-850 rounded-xl max-w-sm mx-auto text-xs text-slate-400 space-y-2">
-        <p className="font-bold text-amber-400">Мобільна автоматизація подорожей:</p>
-        <p>1. Складання чек-листа речей.</p>
-        <p>2. Розрахунок часу та оптимального маршруту.</p>
-        <p>3. Пошук дешевих квитків.</p>
-      </div>
-      <button 
-        onClick={() => { setComplete(true); onTaskPassed(); }}
-        className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all cursor-pointer ${complete ? 'bg-emerald-600 text-white' : 'bg-amber-500 text-slate-950 hover:bg-amber-400'}`}
-      >
-        {complete ? '✓ Сценарій запущений' : 'Запустити Сценарій'}
-      </button>
+    <div className="text-center space-y-4 max-w-md mx-auto">
+      <p className="text-xs text-slate-300 font-medium">
+        {status === 'idle' && 'Ваш перший персональний сценарій налаштовано!'}
+        {status === 'running' && '⚙️ Запущено виконання автоматичного сценарію...'}
+        {status === 'completed' && '🎉 Успішно виконано! Персональний дайджест подорожі готовий:'}
+      </p>
+
+      {status === 'idle' && (
+        <div className="space-y-4">
+          <div className="p-4 bg-slate-950/60 border border-slate-850 rounded-2xl text-left text-xs text-slate-350 space-y-3 shadow-inner">
+            <p className="font-bold text-vibrant-cyan flex items-center gap-1.5 uppercase tracking-wide">
+              <span>✈️ Сценарій: Мобільна автоматизація подорожей</span>
+            </p>
+            <div className="space-y-2 border-t border-slate-900 pt-2.5">
+              <div className="flex gap-2 items-start">
+                <span className="font-mono font-bold text-vibrant-pink">1.</span>
+                <p>Аналіз прогнозу погоди у місті прибуття та миттєве створення оптимального <strong className="text-white">чек-листа речей</strong>.</p>
+              </div>
+              <div className="flex gap-2 items-start">
+                <span className="font-mono font-bold text-vibrant-pink">2.</span>
+                <p>Розрахунок загального часу у дорозі та побудова <strong className="text-white">оптимального маршруту</strong> між містами.</p>
+              </div>
+              <div className="flex gap-2 items-start">
+                <span className="font-mono font-bold text-vibrant-pink">3.</span>
+                <p>Автоматичний пошук <strong className="text-white">найдешевших квитків</strong> під обраний бюджет.</p>
+              </div>
+            </div>
+          </div>
+
+          <button 
+            onClick={handleStartSimulation}
+            className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-amber-500 to-amber-600 dark:from-amber-400 dark:to-amber-500 text-slate-950 hover:from-amber-400 hover:to-amber-300 transition-all cursor-pointer font-display uppercase tracking-widest text-xs font-black shadow-lg rounded-xl transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            Запустити Сценарій
+          </button>
+        </div>
+      )}
+
+      {status === 'running' && (
+        <div className="p-4 bg-slate-950/80 border border-slate-855 rounded-2xl text-left space-y-4 font-mono shadow-xl animate-pulse">
+          {/* Circular/line progress representation */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between text-[11px] text-vibrant-cyan font-bold">
+              <span>ПРОГРЕС СИМУЛЯЦІЇ:</span>
+              <span>{progress}%</span>
+            </div>
+            <div className="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+              <div 
+                className="bg-vibrant-cyan h-full rounded-full transition-all duration-75"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Running steps console */}
+          <div className="space-y-2 text-[11px] leading-relaxed max-h-[140px] overflow-y-auto">
+            {logs.map((log, idx) => {
+              const isDone = progress >= (idx === logs.length - 1 ? 100 : (idx + 1) * 20);
+              const isCurrent = activeLogIndex === idx;
+
+              if (progress < idx * 20) return null;
+
+              return (
+                <div 
+                  key={idx} 
+                  className={`flex items-start gap-2 transition-all duration-300 ${
+                    isDone ? 'text-slate-500' : isCurrent ? 'text-vibrant-cyan font-black' : 'text-slate-400'
+                  }`}
+                >
+                  <span className="shrink-0">
+                    {isDone ? '✅' : isCurrent ? '⚡' : '⏳'}
+                  </span>
+                  <p>{log.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {status === 'completed' && (
+        <div className="space-y-4 animate-[fadeIn_0.4s_ease-out]">
+          <div className="grid grid-cols-1 gap-3.5 text-left">
+            
+            {/* 1. Checklist Block */}
+            <div className="p-3.5 bg-slate-950/60 border border-slate-850 rounded-xl space-y-2">
+              <span className="text-[10px] font-mono font-black text-vibrant-coral tracking-widest uppercase block border-b border-slate-900 pb-1.5">
+                🎒 Чек-лист речей (Рим, +19°C):
+              </span>
+              <div className="space-y-1.5 text-xs text-slate-300">
+                {Object.keys(selectedItems).map(item => (
+                  <label 
+                    key={item} 
+                    className="flex items-center gap-2 cursor-pointer hover:text-white select-none transition-colors"
+                  >
+                    <input 
+                      type="checkbox" 
+                      checked={selectedItems[item]} 
+                      onChange={() => toggleItem(item)}
+                      className="rounded border-slate-750 bg-slate-900 text-vibrant-cyan focus:ring-0 focus:ring-offset-0 w-3.5 h-3.5 cursor-pointer accent-cyan-500"
+                    />
+                    <span className={selectedItems[item] ? 'line-through text-slate-500' : ''}>
+                      {item}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* 2. Optimal Route Block */}
+            <div className="p-3.5 bg-slate-950/60 border border-slate-850 rounded-xl space-y-1.5">
+              <span className="text-[10px] font-mono font-black text-vibrant-cyan tracking-widest uppercase block border-b border-slate-900 pb-1.5">
+                🗺️ Побудований маршрут на вівторок:
+              </span>
+              <p className="text-xs text-slate-300 leading-relaxed font-semibold">
+                Київ <span className="text-slate-500 font-normal">➔ (автобус) ➔</span> Варшава <span className="text-slate-500 font-normal">➔ (WizzAir, 2 год) ➔</span> Рим (Аеропорт Чампіно)
+              </p>
+              <p className="text-[11px] text-slate-450 leading-relaxed">
+                Стиковка у Варшаві: <strong className="text-vibrant-emerald">3 год 20 хв</strong> (ідеальний запас часу). Загальний час у дорозі: ~17.5 годин.
+              </p>
+            </div>
+
+            {/* 3. Budget Tickets found */}
+            <div className="p-3.5 bg-slate-950/60 border border-slate-850 rounded-xl space-y-1.5">
+              <span className="text-[10px] font-mono font-black text-vibrant-emerald tracking-widest uppercase block border-b border-slate-900 pb-1.5">
+                🎫 Знайдені квитки (Ryanair / WizzAir):
+              </span>
+              <div className="flex justify-between items-center text-xs">
+                <div>
+                  <p className="font-bold text-white">WizzAir W6-1402 (Варшава ➔ Рим)</p>
+                  <p className="text-[11px] text-slate-450">Прямий рейс, ручна поклажа в комплекті</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-vibrant-emerald text-sm font-black font-mono">€29.90</p>
+                  <p className="text-[10px] text-slate-500 line-through font-mono">€58.00</p>
+                </div>
+              </div>
+              <div className="bg-vibrant-emerald/5 border border-vibrant-emerald/20 p-2 rounded-lg text-center text-[11px] text-vibrant-emerald">
+                🔥 Знайдено автоматично, заощаджено <strong className="font-bold">48% бюджету</strong>!
+              </div>
+            </div>
+
+          </div>
+
+          <button 
+            onClick={handleStartSimulation}
+            className="w-full px-6 py-2.5 bg-emerald-600 text-white font-display text-xs font-black rounded-xl uppercase tracking-widest hover:bg-emerald-500 transition-all cursor-pointer shadow-md shadow-emerald-950/20"
+          >
+            ✓ Перезапустити сценарій
+          </button>
+        </div>
+      )}
     </div>
   );
 };
