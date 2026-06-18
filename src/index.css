@@ -363,12 +363,23 @@ html.light .bg-rose-950\/10 * {
 }
 
 /* Alert text states specifically */
-html.light .text-emerald-300 {
+html.light .text-emerald-300,
+html.light .text-emerald-200,
+html.light .text-emerald-100 {
   color: #15803d !important;
 }
 
-html.light .text-rose-300 {
+html.light .text-rose-300,
+html.light .text-coral-200,
+html.light .text-coral-100 {
   color: #b91c1c !important;
+}
+
+html.light .text-cyan-200,
+html.light .text-cyan-100,
+html.light .text-sky-200,
+html.light .text-sky-100 {
+  color: #0369a1 !important;
 }
 
 /* Slider / Range controls in light theme */
