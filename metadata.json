@@ -1,0 +1,6 @@
+{
+  "name": "ШІ для всіх",
+  "description": "Практичний курс зі штучного інтелекту: 17 інтерактивних уроків, приклади з життя, безпека, промпти і правила роботи з ШІ.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
