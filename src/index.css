@@ -123,13 +123,30 @@ html.light .text-slate-360 {
   color: #1e293b !important;
 }
 
+html.light .text-white:not(button):not(button *):not([class*="bg-gradient-to-"]):not([class*="bg-gradient-to-"] *),
 html.light h1.text-white,
 html.light h2.text-white,
-html.light h3.text-white:not(button *):not([class*="bg-vibrant-pink"] *):not([class*="bg-vibrant-purple"] *):not([class*="bg-vibrant-violet"] *):not([class*="bg-vibrant-indigo"] *):not([class*="bg-vibrant-emerald"] *):not([class*="bg-vibrant-coral"] *),
-html.light h4.text-white:not(button *):not([class*="bg-vibrant-pink"] *):not([class*="bg-vibrant-purple"] *):not([class*="bg-vibrant-violet"] *):not([class*="bg-vibrant-indigo"] *):not([class*="bg-vibrant-emerald"] *):not([class*="bg-vibrant-coral"] *),
-html.light p.text-white:not(button *):not([class*="bg-vibrant-pink"] *):not([class*="bg-vibrant-purple"] *):not([class*="bg-vibrant-violet"] *):not([class*="bg-vibrant-indigo"] *):not([class*="bg-vibrant-emerald"] *):not([class*="bg-vibrant-coral"] *),
-html.light span.text-white:not(button *):not(header *):not([class*="bg-vibrant-pink"] *):not([class*="bg-vibrant-purple"] *):not([class*="bg-vibrant-violet"] *):not([class*="bg-vibrant-indigo"] *):not([class*="bg-vibrant-emerald"] *):not([class*="bg-vibrant-coral"] *),
-html.light strong.text-white {
+html.light h3.text-white:not(button *):not([class*="bg-gradient-to-"] *),
+html.light h4.text-white:not(button *):not([class*="bg-gradient-to-"] *),
+html.light p.text-white:not(button *):not([class*="bg-gradient-to-"] *),
+html.light span.text-white:not(button *):not(header *):not([class*="bg-gradient-to-"] *),
+html.light strong.text-white,
+html.light [class*="vibrant-card"] .text-white,
+html.light [class*="vibrant-card"] h1.text-white,
+html.light [class*="vibrant-card"] h2.text-white,
+html.light [class*="vibrant-card"] h3.text-white,
+html.light [class*="vibrant-card"] h4.text-white,
+html.light [class*="vibrant-card"] p.text-white,
+html.light [class*="vibrant-card"] span.text-white,
+html.light [class*="vibrant-card"] strong.text-white,
+html.light [class*="vibrant-dark"] .text-white,
+html.light [class*="vibrant-dark"] h1.text-white,
+html.light [class*="vibrant-dark"] h2.text-white,
+html.light [class*="vibrant-dark"] h3.text-white,
+html.light [class*="vibrant-dark"] h4.text-white,
+html.light [class*="vibrant-dark"] p.text-white,
+html.light [class*="vibrant-dark"] span.text-white,
+html.light [class*="vibrant-dark"] strong.text-white {
   color: #0f172a !important;
 }
 
